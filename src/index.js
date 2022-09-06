@@ -22,3 +22,6 @@ server.get("/movies", (req, resp) => {
   });
 
 });
+
+const staticServer = './web';
+server.use(express.static(staticServer));
