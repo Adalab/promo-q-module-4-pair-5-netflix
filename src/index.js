@@ -23,5 +23,5 @@ server.get("/movies", (req, resp) => {
 
 });
 
-const staticServer = './web';
+const staticServer = './src/public-react';
 server.use(express.static(staticServer));
