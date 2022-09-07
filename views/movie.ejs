@@ -1,1 +1,22 @@
-<p>Hola mundo</p>
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<link rel="icon" href="./favicon.ico"/>
+<link rel="stylesheet" href="./styles/main.css">
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Netflix</title>
+
+</head>
+<body class="page">
+<main>
+<ul>
+ <li key={movie.id} className="card">
+          <img className="card__img" src={movie.image} alt="Carátula de <%= title %>" />
+          <h3 className="card__title"><%= title %></h3>
+          <p className="card__description">Género:<%= gender %></p>
+        </li></ul>
+        </main>
+</body>
+</html>
+

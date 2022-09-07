@@ -14,28 +14,36 @@ server.listen(serverPort, () => {
 });
 
 server.get("/movies", (req, resp) => {
-  console.log(movieList)
+
+  const gender = req.query.gender ? req.query.gender : "";
+  const moviesFilter = movieList.filter((movie) => movie.gender.includes(gender));
   resp.json({
     "success": true,
-    "movies": movieList,
+    "movies": moviesFilter,
 
   });
 
 });
 
 
+
+
+
+
+
+
 //motor de plantillas 
 
 server.set("view engine", "ejs");
-server.get('/movie/:movieId', (req,res)=>{
-  console.log(req.params.movieId)
+server.get('/movie/:movieId', (req, res) => {
 
-  const movieFound = movieList.find((movie)=> movie.id=== req.params.movieId)
-  console.log(movieFound)
-  
-   res.render('movie')
- 
-  
+
+  const movieFound = movieList.find((movie) => movie.id === req.params.movieId)
+
+
+  res.render('movie', movieFound)
+
+
 });
 
 
@@ -46,3 +54,6 @@ server.get('/movie/:movieId', (req,res)=>{
 
 const staticServer = './src/public-react';
 server.use(express.static(staticServer));
+const staticServerImg = './src/public-movies-images'
+server.use(express.static(staticServerImg));
+server.use(express.static('./src/styles'));
