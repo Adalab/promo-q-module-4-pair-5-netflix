@@ -23,5 +23,26 @@ server.get("/movies", (req, resp) => {
 
 });
 
+
+//motor de plantillas 
+
+server.set("view engine", "ejs");
+server.get('/movie/:movieId', (req,res)=>{
+  console.log(req.params.movieId)
+
+  const movieFound = movieList.find((movie)=> movie.id=== req.params.movieId)
+  console.log(movieFound)
+  
+   res.render('movie')
+ 
+  
+});
+
+
+
+
+
+
+
 const staticServer = './src/public-react';
 server.use(express.static(staticServer));
