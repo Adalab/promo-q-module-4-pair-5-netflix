@@ -4,7 +4,7 @@ const sendLoginToApi = data => {
   console.log('Se están enviando datos al login:', data);
   // CAMBIA ESTE FETCH PARA QUE APUNTE A UN ENDPOINT DE TU SERVIDOR, PIENSA SI DEBE SER GET O POST, PIENSA QUÉ DATOS DEBES ENVIAR, ETC
 
-  return fetch('//localhost:4000/login'),
+  return fetch('//localhost:4000/login',
     {
       method: 'POST',
       body: JSON.stringify(data),
@@ -12,12 +12,12 @@ const sendLoginToApi = data => {
         'Content-Type': 'application/json',
       }
     }
-      .then(response => response.json())
-      .then(data => {
-        return data;
-      });
 
-};
+  ).then(response => response.json())
+    .then(data => {
+      return data;
+    });
+}
 
 // signup
 
