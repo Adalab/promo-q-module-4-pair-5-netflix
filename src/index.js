@@ -16,15 +16,29 @@ server.listen(serverPort, () => {
 });
 
 server.get("/movies", (req, resp) => {
-  const query = db.prepare(`SELECT * FROM movies`)
-
-  console.log(query)
-
-  resp.json({
+  
+  const chosenGender = req.query.gender ? req.query.gender.toLowerCase() : "";
+  
+  
+  if( chosenGender !== ''){
+    console.log(chosenGender)
+    const query= db.prepare('SELECT * FROM movies WHERE gender = ? ORDER BY title ASC')
+    const result = query.all(chosenGender);
+    resp.json({
+      "successs": true,
+      "movies": result,
+    })
+  }else{
+    const query = db.prepare('SELECT * FROM movies')
+    const result = query.all();
+    console.log(result)
+    resp.json({
     "success": true,
-    "movies": query,
+    "movies": result,
 
-  });
+    });
+  }
+  
 
 });
 
