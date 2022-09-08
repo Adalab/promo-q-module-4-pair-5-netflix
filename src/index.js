@@ -16,14 +16,13 @@ server.listen(serverPort, () => {
 });
 
 server.get("/movies", (req, resp) => {
-  const query = Database.prepare(`SELECT * FROM movies`)
-  const allMovies = query.all;
-  console.log(allMovies)
-  const gender = req.query.gender ? req.query.gender : "";
-  const moviesFilter = allMovies.filter((movie) => movie.gender.includes(gender));
+  const query = db.prepare(`SELECT * FROM movies`)
+
+  console.log(query)
+
   resp.json({
     "success": true,
-    "movies": moviesFilter,
+    "movies": query,
 
   });
 
