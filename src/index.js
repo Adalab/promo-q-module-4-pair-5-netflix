@@ -16,34 +16,48 @@ server.listen(serverPort, () => {
 });
 
 server.get("/movies", (req, resp) => {
-  
+
   const chosenGender = req.query.gender ? req.query.gender.toLowerCase() : "";
-  
-  
-  if( chosenGender !== ''){
+
+
+  if (chosenGender !== '') {
     console.log(chosenGender)
-    const query= db.prepare('SELECT * FROM movies WHERE gender = ? ORDER BY title ASC')
+    const query = db.prepare('SELECT * FROM movies WHERE gender = ? ORDER BY title ASC')
     const result = query.all(chosenGender);
     resp.json({
       "successs": true,
-      "movies": result,
+      "movies": result
     })
-  }else{
+  } else {
     const query = db.prepare('SELECT * FROM movies')
     const result = query.all();
     console.log(result)
     resp.json({
-    "success": true,
-    "movies": result,
+      "success": true,
+      "movies": result
 
     });
   }
-  
+
 
 });
 
+//'SELECT id FROM users WHERE email= ?'
+server.post("/sign-up", (req, resp) => {
+  const query = db.prepare('INSERT INTO users (email,password)VALUES(?,?)');
+  const result = query.run(req.body.email, req.body.password)
+  console.log(result)
 
 
+  resp.json(
+
+    {
+      "success": true,
+      "userId": result
+    }
+
+  )
+});
 
 
 
@@ -52,6 +66,7 @@ server.get("/movies", (req, resp) => {
 //motor de plantillas 
 
 server.set("view engine", "ejs");
+
 server.get('/movie/:movieId', (req, res) => {
 
 
